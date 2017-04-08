@@ -1,0 +1,46 @@
+import java.util.HashSet;
+import java.util.Set;
+
+public class Main {
+
+	public static int maxLength(String str){
+		//首先判断字符串是否为空
+		if(str==null||str.equals("")){
+			return 0;
+		}
+		//用一个Hashset保存已出现过的字符
+		Set<Character> set=new HashSet<Character>();
+		int maxLength=0;
+		int sta=0;   //头指针
+		int fin=0;   //尾指针
+		while(fin<str.length()){
+			if(!set.contains(str.charAt(fin))){
+				set.add(str.charAt(fin));
+				fin++;
+			}else{
+				/*
+				 * 清空集合，头指针向后移动一个字符，尾指针再指向头指针，
+				 * 然后重复上面的过程
+				 */
+				set.clear();   
+				if((fin-sta)>maxLength){
+				    maxLength=fin-sta;
+				}
+				sta++;
+				fin=sta;
+			}
+		}
+		
+		if((fin-sta)>maxLength){
+		    maxLength=fin-sta;
+		}
+		return maxLength;
+	}
+	public static void main(String[] args) {
+		//String str = "abcda";
+		String str="";
+		System.out.println(maxLength(str));
+
+	}
+
+}
